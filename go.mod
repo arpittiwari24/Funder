@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/NdoleStudio/lemonsqueezy-go v1.2.2 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/gofiber/template v1.8.3 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect

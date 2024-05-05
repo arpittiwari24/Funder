@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-
+	"github.com/NdoleStudio/lemonsqueezy-go"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
 	"main.go/database"
@@ -16,6 +16,9 @@ import (
 func main() {
 
 	database.ConnectDb()
+
+	client := lemonsqueezy.New(lemonsqueezy.WithAPIKey(os.Getenv("LEMONSQUEEZY_API_KEY")))
+	fmt.Println(client)
 
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
@@ -82,7 +85,7 @@ func main() {
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		product := models.Product{}
-
+		
 		// Find the most recent product by ordering by ID descending and getting the first
 		result := database.DB.DB.Order("id desc").First(&product)
 		if result.Error != nil {

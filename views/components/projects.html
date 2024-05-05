@@ -1,14 +1,17 @@
 
 {{define "projects"}}
-<div class="flex flex-wrap justify-center items-center">
+<div class="">
     {{range .data}}
-    <div class="w-2/3 p-2">
-        <div class="bg-white rounded-lg shadow-md">
-            <div class="p-4 text-center">
-                <img src="{{.Image}}" alt="product image" class="h-72 w-2/3">
-                <p class="text-black text-xl font-bold mb-2 block">{{.Name}}</p>
-                <p class="text-black text-lg ">{{.Description}}</p>
-                <p class="text-black text-lg">Users: <span>{{.Users}}</span></p>
+    <div class="w-full p-2">
+        <div class="rounded-lg">
+            <div class="p-4 text-center flex flex-col items-center">
+                <img src="{{.Image}}" alt="product image" class="h-64">
+                <div class="flex flex-row justify-center items-center gap-2">
+                <p class="text-xl font-bold">{{.Name}}</p>
+                <p class=" text-xl">users: <span>{{.Users}}</span></p>
+                <a href="{{.Url}}" target="_blank">visit</a>
+                </div>
+                <p class=" text-lg ">{{.Description}}</p>
             </div>
         </div>
     </div>
