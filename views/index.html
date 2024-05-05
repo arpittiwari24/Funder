@@ -5,10 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.3/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script><title>Crowd Funding</title>
+<script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+<script>
+    // Function to close the modal
+    function closeModal() {
+      const modal = document.getElementById('my_modal_3');
+      if (modal) {
+        modal.close();
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-4 right-4 bg-green-500 text-white p-2 rounded';
+      toast.innerText = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        document.body.removeChild(toast);
+      }, 3000); // The toast disappears after 3 seconds
+    }
+  </script>
+<title>Crowd Funding</title>
 </head>
 <body>
     {{template "navbar" .}}
-    {{template "projects" .}}
+    <div id="projects">
+        {{template "projects" .}}
+    </div>
 </body>
 </html>
