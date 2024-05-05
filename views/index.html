@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.3/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
 <script>
     // Function to close the modal
     function closeModal() {
@@ -24,6 +25,14 @@
         document.body.removeChild(toast);
       }, 3000); // The toast disappears after 3 seconds
     }
+
+    function resetForm(formId) {
+      const form = document.getElementById(formId);
+      if (form) {
+        form.reset();
+      }
+    }
+
   </script>
 <title>Crowd Funding</title>
 </head>

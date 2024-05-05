@@ -15,12 +15,13 @@
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
               </form>
               <!-- Form inside modal with HTMX -->
-              <form class="flex flex-col align-center justify-center gap-4 p-4"
+              <form id="newProduct" class="flex flex-col align-center justify-center gap-4 p-4"
+                    enctype="multipart/form-data"
                     hx-post="/new"
                     hx-trigger="submit"
                     hx-target="#projects"
                     hx-swap="innerHTML"
-                    hx-on:htmx:after-request="if (event.detail.xhr.status === 200) { closeModal(); showToast(`Product added successfully`); }">
+                    hx-on:htmx:after-request="if (event.detail.xhr.status === 200) { closeModal(); showToast(`Product added successfully`); resetForm(newProduct) }">
                 <input type="text" name="name" placeholder="Enter product name" required>
                 <input type="text" name="description" placeholder="Enter description" required>
                 <input type="email" name="email" placeholder="Enter your email" required>

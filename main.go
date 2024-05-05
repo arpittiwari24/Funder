@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
@@ -19,13 +22,46 @@ func main() {
 
 	fmt.Println("Jai Shree Ram !!")
 
-	app.Post("/new", func(c *fiber.Ctx) error {
-		product := new(models.Product)
+	imageDir := "./public/images/"
+	if _, err := os.Stat(imageDir); os.IsNotExist(err) {
+		os.MkdirAll(imageDir, 0755) // Create the directory if it doesn't exist
+	}
 
-		if err := c.BodyParser(product) ; err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"message" : err.Error(),
+	app.Post("/new", func(c *fiber.Ctx) error {
+		fmt.Println(c.FormFile("image"))
+		file, err := c.FormFile("image")
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"message": "No file uploaded",
 			})
+		}
+		fmt.Println(file)
+		// Generate a unique filename and save the file to the image directory
+		fileName := filepath.Join(imageDir, fmt.Sprintf("%s", file.Filename))
+		if err := c.SaveFile(file, fileName); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"message": "File saving failed",
+			})
+		}
+
+		// Generate the public URL for the image
+		publicUrl := fmt.Sprintf("/images/%s", file.Filename)
+
+		usersStr := c.FormValue("users")
+		users, err := strconv.Atoi(usersStr) // Convert to integer
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"message": "Invalid number of users",
+			})
+		}
+
+		// Create a new product
+		product := &models.Product{
+			Name:    c.FormValue("name"),
+			Description: c.FormValue("description"),
+			Email:   c.FormValue("email"),
+			Image: publicUrl, // Store the public URL in the database
+			Users: users,
 		}
 		database.DB.DB.Create(product)
 
@@ -47,6 +83,23 @@ func main() {
 			"data": products,
 		})
 	})
+
+	app.Delete("/delete", func(c *fiber.Ctx) error {
+		// Perform a DELETE operation on the products table
+		result := database.DB.DB.Where("1 = 1").Delete(&models.Product{}) // Deletes all rows in the table
+
+		if result.Error != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"message": "Failed to delete products",
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "All products deleted successfully",
+		})
+	})
+
+	app.Static("/images", "./public/images")
 
 	log.Fatal(app.Listen(":3000"))
 }
