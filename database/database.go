@@ -26,7 +26,7 @@ func ConnectDb()  {
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
-	fmt.Println(("This line reached upar wali"))
+	
 	if err != nil {
 		log.Fatal("Failed to connect\n",err)
 		os.Exit(2)
@@ -36,7 +36,7 @@ func ConnectDb()  {
 
 	log.Println("Running Migrations")
 	db.AutoMigrate(&models.Product{})
-	fmt.Println(("This line reached"))
+	
 	DB = DBInstance{
 		DB: db,
 	}

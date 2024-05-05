@@ -3,6 +3,7 @@ module main.go
 go 1.21.0
 
 require (
+	github.com/NdoleStudio/lemonsqueezy-go v1.2.2
 	github.com/gofiber/fiber/v2 v2.52.4
 	github.com/gofiber/template/html/v2 v2.1.1
 	gorm.io/driver/postgres v1.5.7
@@ -10,7 +11,6 @@ require (
 )
 
 require (
-	github.com/NdoleStudio/lemonsqueezy-go v1.2.2 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/gofiber/template v1.8.3 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect

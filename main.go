@@ -30,6 +30,11 @@ func main() {
 		os.MkdirAll(imageDir, 0755) // Create the directory if it doesn't exist
 	}
 
+	app.Post("/webhooks", func(c *fiber.Ctx) error {
+		
+		return c.SendString("Jai Shree Ram !!")
+	})
+
 	app.Post("/new", func(c *fiber.Ctx) error {
 		
 		file, err := c.FormFile("image")
