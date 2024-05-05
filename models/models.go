@@ -9,4 +9,5 @@ type Product struct {
 	Image       string `json:"image" gorm:"text; not null; default: null"`
 	Users       int    `json:"users" gorm:"int; not null; default: null"`
 	Email       string `json:"email" gorm:"text;not null; default: null"`
+	Url         string `json:"url" gorm:"text; not null; default: null"`
 }

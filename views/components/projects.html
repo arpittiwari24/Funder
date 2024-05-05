@@ -1,12 +1,14 @@
 
 {{define "projects"}}
-<div class="flex flex-wrap justify-center">
+<div class="flex flex-wrap justify-center items-center">
     {{range .data}}
-    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
-        <div class="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer">
-            <div class="p-4">
-                <img src="{{.Image}}" alt="">
-                <p class="text-black text-lg font-bold mb-2 block">{{.Name}}</p>
+    <div class="w-2/3 p-2">
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="p-4 text-center">
+                <img src="{{.Image}}" alt="product image" class="h-72 w-2/3">
+                <p class="text-black text-xl font-bold mb-2 block">{{.Name}}</p>
+                <p class="text-black text-lg ">{{.Description}}</p>
+                <p class="text-black text-lg">Users: <span>{{.Users}}</span></p>
             </div>
         </div>
     </div>

@@ -28,14 +28,13 @@ func main() {
 	}
 
 	app.Post("/new", func(c *fiber.Ctx) error {
-		fmt.Println(c.FormFile("image"))
+		
 		file, err := c.FormFile("image")
 		if err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"message": "No file uploaded",
 			})
 		}
-		fmt.Println(file)
 		// Generate a unique filename and save the file to the image directory
 		fileName := filepath.Join(imageDir, fmt.Sprintf("%s", file.Filename))
 		if err := c.SaveFile(file, fileName); err != nil {
@@ -62,25 +61,38 @@ func main() {
 			Email:   c.FormValue("email"),
 			Image: publicUrl, // Store the public URL in the database
 			Users: users,
+			Url:   c.FormValue("url"),
 		}
 		database.DB.DB.Create(product)
 
-		products := []models.Product{}
-		database.DB.DB.Find(&products)
+		products := models.Product{}
 
-		// Render the updated list of products
+		// Find the most recent product by ordering by ID descending and getting the first
+		result := database.DB.DB.Order("id desc").First(&products)
+		if result.Error != nil {
+			// If there's an error (e.g., no products found), return a 404 status
+			return c.Status(fiber.StatusNotFound).SendString("No products found")
+		}
+
+		// Return the last product
 		return c.Render("projects", fiber.Map{
-			"data": products,
+			"data": []models.Product{products}, // Wrap in a slice for consistent rendering
 		})
 	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		products := []models.Product{}
+		product := models.Product{}
 
-		database.DB.DB.Find(&products)
-		fmt.Println(products)
-		return c.Render("index",fiber.Map{
-			"data": products,
+		// Find the most recent product by ordering by ID descending and getting the first
+		result := database.DB.DB.Order("id desc").First(&product)
+		if result.Error != nil {
+			// If there's an error (e.g., no products found), return a 404 status
+			return c.Status(fiber.StatusNotFound).SendString("No products found")
+		}
+
+		// Return the last product
+		return c.Render("index", fiber.Map{
+			"data": []models.Product{product}, // Wrap in a slice for consistent rendering
 		})
 	})
 
@@ -97,6 +109,10 @@ func main() {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"message": "All products deleted successfully",
 		})
+	})
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Heelo Ji")
 	})
 
 	app.Static("/images", "./public/images")

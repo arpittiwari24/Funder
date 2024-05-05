@@ -34,9 +34,17 @@
     }
 
   </script>
+  <style>
+    body {
+        overflow-y: scroll;
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+  </style>
 <title>Crowd Funding</title>
 </head>
-<body>
+<body class="no-scrollbar">
     {{template "navbar" .}}
     <div id="projects">
         {{template "projects" .}}

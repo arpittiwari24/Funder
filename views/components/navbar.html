@@ -2,11 +2,11 @@
 <div>
     <div class="navbar">
         <div class="flex-1">
-          <h1 class="btn btn-ghost text-xl">Funder</h1>
+          <h1 class="btn btn-ghost text-xl">OneBuck</h1>
         </div>
         <div class="nav-end">
           <!-- Open modal -->
-          <button class="btn btn-primary" onclick="my_modal_3.showModal()">Add New</button>
+          <button class="btn btn-primary" onclick="my_modal_3.showModal()">Replace this with Yours</button>
           <!-- Modal definition -->
           <dialog id="my_modal_3" class="modal">
             <div class="modal-box">
@@ -22,11 +22,12 @@
                     hx-target="#projects"
                     hx-swap="innerHTML"
                     hx-on:htmx:after-request="if (event.detail.xhr.status === 200) { closeModal(); showToast(`Product added successfully`); resetForm(newProduct) }">
-                <input type="text" name="name" placeholder="Enter product name" required>
-                <input type="text" name="description" placeholder="Enter description" required>
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <input type="file" name="image" id="image">
-                <input type="number" name="users" placeholder="Number of users">
+                <input type="text" name="name" placeholder="Enter product name" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <input type="text" name="description" placeholder="Enter description" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <input type="email" name="email" placeholder="Enter your email" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <input type="file" name="image" id="image" required >
+                <input type="number" name="users" placeholder="Number of users" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <input type="text" name="url" placeholder="enter the website url" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                 <button type="submit" class="btn btn-secondary">Add</button>
               </form>
             </div>
