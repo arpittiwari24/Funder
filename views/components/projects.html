@@ -1,20 +1,31 @@
 
 {{define "projects"}}
-<div class="">
+<div>
+    {{if eq (len .data) 0}} <!-- Check if data is empty -->
+    <div class="w-full p-2">
+        <div class="rounded-lg">
+            <div class="p-4 text-center flex flex-col items-center">
+                <p class="text-xl font-bold">No projects available now.</p>
+            </div>
+        </div>
+    </div>
+    {{else}} <!-- If data is not empty, render the projects -->
     {{range .data}}
     <div class="w-full p-2">
         <div class="rounded-lg">
             <div class="p-4 text-center flex flex-col items-center">
-                <img src="{{.Image}}" alt="product image" class="h-64">
+                <img src="{{.Image}}" alt="product image" class="h-96 rounded-lg">
                 <div class="flex flex-row justify-center items-center gap-2">
-                <p class="text-xl font-bold">{{.Name}}</p>
-                <p class=" text-xl">users: <span>{{.Users}}</span></p>
-                <a href="{{.Url}}" target="_blank">visit</a>
+                    <p class="text-xl font-bold">{{.Name}}</p>
+                    <p class="text-xl">Users: <span>{{.Users}}</span></p>
+                    <a href="{{.Url}}" target="_blank">Visit</a>
                 </div>
-                <p class=" text-lg ">{{.Description}}</p>
+                <p class="text-lg">{{.Description}}</p>
             </div>
         </div>
     </div>
     {{end}}
+    {{end}} <!-- Close the conditional block -->
 </div>
 {{end}}
+

@@ -136,31 +136,24 @@ func main() {
 		fmt.Println(product)
 		database.DB.DB.Create(product)
 
-		products := models.Product{}
-
-		// Find the most recent product by ordering by ID descending and getting the first
-		result := database.DB.DB.Order("id desc").First(&products)
-		if result.Error != nil {
-			// If there's an error (e.g., no products found), return a 404 status
-			return c.Status(fiber.StatusNotFound).SendString("No products found")
-		}
-
 		// Return the last product
 		return c.Render("projects", fiber.Map{
-			"data": []models.Product{products}, // Wrap in a slice for consistent rendering
+			"data": product, // Wrap in a slice for consistent rendering
 		})
 	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
+		
 		product := models.Product{}
 
 		// Find the most recent product by ordering by ID descending and getting the first
-		result := database.DB.DB.Order("id desc").First(&product)
-		if result.Error != nil {
-			// If there's an error (e.g., no products found), return a 404 status
-			return c.Status(fiber.StatusNotFound).SendString("No products found")
-		}
+		// result := database.DB.DB.Order("id desc").First(&product)
+		// if result.Error != nil {
+		// 	// If there's an error (e.g., no products found), return a 404 status
+		// 	return c.SendStatus(200)
+		// }
 
+		fmt.Println([]models.Product{product})
 		// Return the last product
 		return c.Render("index", fiber.Map{
 			"data": []models.Product{product}, // Wrap in a slice for consistent rendering
